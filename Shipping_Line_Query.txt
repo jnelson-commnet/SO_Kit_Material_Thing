@@ -1,0 +1,35 @@
+SELECT SO.NUM as "SONum", 
+      SOITEM.SOLINEITEM as "Line",
+      PART.NUM as "PartNum", 
+      (SOITEM.QTYTOFULFILL - SOITEM.QTYFULFILLED) as "Qty", 
+      SOITEMSTATUS.NAME as "Status", 
+      SOITEM.DATESCHEDULEDFULFILLMENT as "Date",
+      SO.DATEISSUED as "DateIssued",
+      cs3.info as "Customer Delivery Request",
+      cs2.info as "Mfg Center",
+      SO.CUSTOMERPO as "Customer PO",
+      SOITEM.NOTE as "Note"
+
+FROM SO
+       join SOITEM on SO.ID = SOITEM.SOID
+       join PRODUCT on SOITEM.PRODUCTID = PRODUCT.ID
+       join PART on PRODUCT.PARTID = PART.ID
+       join CUSTOMSET on PART.ID = CUSTOMSET.RECORDID
+       join SOITEMSTATUS on SOITEM.STATUSID = SOITEMSTATUS.ID
+       left join (select * 
+                  from customset 
+                  where customset.customfieldid = 80)
+            as cs2 on cs2.recordid = part.id
+       left join (select *
+                  from customtimestamp
+                  where customtimestamp.customfieldid = 112)
+            as cs3 on cs3.recordid = so.id
+
+WHERE SO.STATUSID in(20,25)
+ AND CUSTOMSET.CUSTOMFIELDID = 64
+ AND CUSTOMSET.INFO = 'Make' 
+ AND SOITEM.STATUSID < 50
+ AND SOITEM.TYPEID = 10
+ AND cs2.INFO in ('Shipping','Kitting')
+
+ORDER BY SOITEM.DATESCHEDULEDFULFILLMENT, SO.NUM

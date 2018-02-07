@@ -1,0 +1,3 @@
+select part.num as "PARTNUM", part.description as "PartDesc"
+from part
+where part.activeflag = 1
