@@ -19,11 +19,11 @@ import forecastrun
 sys.path.insert(0, spamBuildPath)
 import spambuild
 
-# forecastrun.refresh_forecast_numbers()
+forecastrun.refresh_forecast_numbers()
 
-# myresults = connecttest.create_connection(homey, 'Shipping_Line_Query.txt')
-# myexcel = connecttest.makeexcelsheet(myresults)
-# connecttest.save_workbook(myexcel, homey, 'Shipping_Line_Query.xlsx')
+myresults = connecttest.create_connection(homey, 'Shipping_Line_Query.txt')
+myexcel = connecttest.makeexcelsheet(myresults)
+connecttest.save_workbook(myexcel, homey, 'Shipping_Line_Query.xlsx')
 
 shippingLineFile = os.path.join(homey, 'Shipping_Line_Query.xlsx')
 
