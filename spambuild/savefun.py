@@ -2,7 +2,7 @@
 
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import datetime, calendar, openpyxl
 
 ### Returns a dataframe of the BOM that produces the FG of the input part

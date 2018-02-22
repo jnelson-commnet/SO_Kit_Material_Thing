@@ -41,7 +41,21 @@ endFrame.sort_values(by='Part', inplace=True)
 endFrame.dropna(axis='index', how='any', subset=['Forecasted Need'], inplace=True)
 
 
+
+
 writer = pd.ExcelWriter(reportFile, engine='xlsxwriter')
 endFrame.to_excel(writer, sheet_name='product_dump', index=False)
 writer.save()
+
+print('report saved ..')
+
+# import email_tool
+
+# recipientList = ['jnelson@commnetsystems.com','jmayhle@commnetsystems.com']
+
+
+# email_tool.send_email(recipientList, reportFile)
+
+
+# print('done!')
 
